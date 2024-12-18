@@ -8,13 +8,42 @@ module.exports = {
     verbiage_En_RespData: verbiage_En_RespData,
     verbiage_Fr_RespData: verbiage_Fr_RespData,
   },
-  botConversationUniqId:{
-    ESI_PHA_ORD_INFO_ORD_ID_RESP:"ESI_PHA_ORD_INFO_ORD_ID_RESP",
-    ESI_PHA_ORD_INFO_MEMBER_ID_RESP:"ESI_PHA_ORD_INFO_MEMBER_ID_RESP",
-    ESI_PHA_ORD_INFO_INVALID_MSG:"ESI_PHA_ORD_INFO_INVALID_MSG"
+  botConversationUniqId: {
+    ESI_PHA_ORD_INFO_ORD_ID_RESP: "ESI_PHA_ORD_INFO_ORD_ID_RESP",
+    ESI_PHA_ORD_INFO_MEMBER_ID_RESP: "ESI_PHA_ORD_INFO_MEMBER_ID_RESP",
+    ESI_PHA_ORD_INFO_INVALID_MSG: "ESI_PHA_ORD_INFO_INVALID_MSG",
   },
   requestHeaders: {
-    "content-type":"application/json"
+    "content-type": "application/json",
+  },
+  preChatForm: {
+    helpForDropDownOptions: [
+      "Who are you getting help for?",
+      { name: "Myself", value: "Myself" },
+      { name: "Family Member", value: "Family Member" },
+    ],
+    reasonForHelpDropDownOptions: [
+      "What can we help with you?",
+      {
+        name: "Getting started with home delivery",
+        value: "Getting started with home delivery",
+      },
+      {
+        name: "Medication coverage and pricing",
+        value: "Medication coverage and pricing",
+      },
+      { name: "My Prescriptions", value: "My Prescriptions" },
+      { name: "My Account", value: "My Account" },
+      { name: "Other Account", value: "Other Account" },
+    ],
+    moreDetailsDropDownOptions: [
+      "Tell us a little more",
+      {
+        name: "Mailing Address/Fax Number",
+        value: "Mailing Address/Fax Number",
+      },
+      { name: "Other", value: "Other" },
+    ],
   },
   serverResponses: {
     default: {
