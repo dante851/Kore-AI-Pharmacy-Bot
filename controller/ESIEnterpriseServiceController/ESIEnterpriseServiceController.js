@@ -44,4 +44,16 @@ module.exports = {
     }
     return res.status(response.status).send(response.body);
   },
+
+  /**
+   * return data for pre-chat dropdown .
+   * @param {*} _  request from route.
+   * @param {*} res response to be send to the api
+   * @returns the response data
+   */
+  getPreChatDetails(_, res) {
+    response = Object.create(constants.serverResponses.success);
+    response.body = ESIEnterpriceService.getPreChatDetails()
+    return res.status(response.status).send(response.body);
+  }
 };
