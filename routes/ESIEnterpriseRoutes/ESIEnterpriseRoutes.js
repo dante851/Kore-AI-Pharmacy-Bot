@@ -25,5 +25,9 @@ router.post(
   apiValidation.validateAPIkey,
   ESIEnterpriseServiceController.getIdDetails
 );
+router.post(
+  "/getPreChatDetails",
+  ESIEnterpriseServiceController.getPreChatDetails
+);
 
 module.exports = router;
