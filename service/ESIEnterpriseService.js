@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 const qs = require("qs");
 const { requestHeaders } = require("../constants/botConstants");
+const { preChatForm } = require("../constants/botConstants");
 const { makeHttpCall } = require("../makeHttpCall");
 
 module.exports = {
@@ -37,5 +38,13 @@ module.exports = {
       .catch(function (err) {
         return err;
       });
+  },
+
+  /**
+   * return the data from constant file.
+   * @returns the id details.
+   */
+  getPreChatDetails() {
+    return preChatForm;
   },
 };
