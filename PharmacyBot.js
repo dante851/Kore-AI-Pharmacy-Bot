@@ -39,7 +39,7 @@ module.exports = {
 
     //Sends back the message to user
     const currentLanguage = data.context.currentLanguage;
-    if(data.context.session.BotUserSession && data.context.session.BotUserSession.channels && data.context.session.BotUserSession.channels.botInfo){
+    if(data.context.session.BotUserSession){
       console.log("data.context", JSON.stringify(data.context.session.BotUserSession.channels.botInfo.customData));
     }
     const verbiageBuilderData =
