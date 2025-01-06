@@ -40,7 +40,7 @@ module.exports = {
     //Sends back the message to user
     const currentLanguage = data.context.currentLanguage;
     if(data.context.session.BotUserSession){
-      console.log("data.context", JSON.stringify(data.context.session.BotUserSession.channels.botInfo.customData));
+      console.log("data.context", JSON.stringify(data.context.session.BotUserSession.channels));
     }
     const verbiageBuilderData =
       currentLanguage === "fr"
