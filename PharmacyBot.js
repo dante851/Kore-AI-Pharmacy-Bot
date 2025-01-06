@@ -50,7 +50,7 @@ module.exports = {
         console.log("channels",data.context.session.BotUserSession.channels)
         console.log("botInfo",data.context.session.BotUserSession.channels[0].botInfo)
         console.log("customData",data.context.session.BotUserSession.channels[0].botInfo.customData)
-        console.log("initialLanguage",data.context.session.BotUserSession.channels[0].botInfo.customData[0].initialLanguage)
+        console.log("initialLanguage",data.context.session.BotUserSession.channels[0].botInfo.customData.initialLanguage)
         console.log("currentLanguage",currentLanguage)
     const verbiageBuilderData =
       currentLanguage === "fr"
