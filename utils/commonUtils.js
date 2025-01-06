@@ -137,7 +137,7 @@ function selectRichCardTemplate(
     });
     obj.payload["button"] = buttonData;
     obj.payload["template_type"] = templatetype.toLowerCase();
-    // obj.payload["text"] = "Please select one of the options";
+    obj.payload["text"] = textResponses[0]?.WEB_RESPONSE_MSG;
     return JSON.stringify(obj);
   }
 }
