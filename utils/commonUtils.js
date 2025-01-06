@@ -12,7 +12,7 @@ module.exports = {
     let failedEntity = messageDataWithBotUserSession.failedEntity;
     let orderIdInput = "";
     const result = verbiage_builder_resp.filter(
-      (ele) => ele.RESPONSE_ID.trim() === responseId
+      (ele) => ele.RESPONSE_ID === responseId
     );
 
     const resultCopy = JSON.parse(JSON.stringify(result));
