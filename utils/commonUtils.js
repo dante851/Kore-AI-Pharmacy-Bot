@@ -76,19 +76,22 @@ function msgTemplate(templateData) {
       return selectRichCardTemplate(
         richCardTemplate.tableTemplate,
         cardData,
-        templateType
+        templateType,
+        textResponses
       );
     case "QUICK_REPLIES":
       return selectRichCardTemplate(
         richCardTemplate.quickReplyTemplate,
         templateData,
-        templateType
+        templateType,
+        textResponses
       );
     case "BUTTON":
       return selectRichCardTemplate(
         richCardTemplate.buttonTemplate,
         templateData,
-        templateType
+        templateType,
+        textResponses
       );
 
     default:
@@ -99,7 +102,8 @@ function msgTemplate(templateData) {
 function selectRichCardTemplate(
   templateTypeFormat,
   templateData,
-  templatetype
+  templatetype,
+  textResponses
 ) {
   if (templatetype === "TABLE") {
     let obj = templateTypeFormat;
