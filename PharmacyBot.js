@@ -47,6 +47,8 @@ module.exports = {
             .initialLanguage
         : "en";
         console.log("BotUserSession",data.context.session.BotUserSession)
+        console.log("BotUserSession",data.context.session.BotUserSession.channels)
+        console.log("BotUserSession",data.context.session.BotUserSession.channels.botInfo)
         console.log("currentLanguage",currentLanguage)
     const verbiageBuilderData =
       currentLanguage === "fr"
