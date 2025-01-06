@@ -77,6 +77,12 @@ function msgTemplate(templateData) {
         templateData,
         templateType
       );
+    case "BUTTON":
+      return selectRichCardTemplate(
+        richCardTemplate.buttonTemplate,
+        templateData,
+        templateType
+      );
 
     default:
       return dafaultTextTemplate;
@@ -107,6 +113,20 @@ function selectRichCardTemplate(
     obj.payload["quick_replies"] = quickreplyData;
     obj.payload["template_type"] = templatetype.toLowerCase();
     obj.payload["text"] = "Do You need to see the order Id Details?";
+    return JSON.stringify(obj);
+  } else if (templatetype === "BUTTON") {
+    let obj = templateTypeFormat;
+    let resultData = templateData;
+    let buttonData = resultData.map((ele) => {
+      return {
+        type: "text",
+        title: ele.BUTTON_LABEL,
+        payload: ele.BUTTON_ID,
+      };
+    });
+    obj.payload["button"] = buttonData;
+    obj.payload["template_type"] = templatetype.toLowerCase();
+    // obj.payload["text"] = "Please select one of the options";
     return JSON.stringify(obj);
   }
 }
