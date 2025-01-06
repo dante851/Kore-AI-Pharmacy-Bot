@@ -41,9 +41,9 @@ module.exports = {
     const currentLanguage =
       data.context.session.BotUserSession &&
       data.context.session.BotUserSession.channels &&
-      data.context.session.BotUserSession.channels.botInfo &&
-      data.context.session.BotUserSession.channels.botInfo.customData
-        ? data.context.session.BotUserSession.channels.botInfo.customData
+      data.context.session.BotUserSession.channels[0].botInfo &&
+      data.context.session.BotUserSession.channels[0].botInfo.customData
+        ? data.context.session.BotUserSession.channels[0].botInfo.customData
             .initialLanguage
         : "en";
         console.log("BotUserSession",data.context.session.BotUserSession)
