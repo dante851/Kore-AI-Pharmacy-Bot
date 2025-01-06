@@ -63,7 +63,7 @@ function msgTemplate(templateData) {
   let cardData = templateData[0]?.DATA;
 
   const dafaultTextTemplate = templateData[0]?.WEB_RESPONSE_MSG;
-
+  console.log("templateData",templateData)
   switch (templateType) {
     case "TABLE":
       return selectRichCardTemplate(
