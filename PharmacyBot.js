@@ -39,6 +39,7 @@ module.exports = {
 
     //Sends back the message to user
     const currentLanguage = data.context.currentLanguage;
+    console.log("custom data language",data.context.session.UserContext.customData.initialLanguage)
     const verbiageBuilderData =
       currentLanguage === "fr"
         ? constants.botConversationResponse.verbiage_Fr_RespData
