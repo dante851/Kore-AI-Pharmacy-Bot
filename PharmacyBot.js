@@ -46,12 +46,12 @@ module.exports = {
         ? data.context.session.BotUserSession.channels[0].botInfo.customData
             .initialLanguage
         : "en";
-        console.log("BotUserSession",data.context.session.BotUserSession)
-        console.log("channels",data.context.session.BotUserSession.channels)
-        console.log("botInfo",data.context.session.BotUserSession.channels[0].botInfo)
-        console.log("customData",data.context.session.BotUserSession.channels[0].botInfo.customData)
-        console.log("initialLanguage",data.context.session.BotUserSession.channels[0].botInfo.customData.initialLanguage)
-        console.log("currentLanguage",currentLanguage)
+        // console.log("BotUserSession",data.context.session.BotUserSession)
+        // console.log("channels",data.context.session.BotUserSession.channels)
+        // console.log("botInfo",data.context.session.BotUserSession.channels[0].botInfo)
+        // console.log("customData",data.context.session.BotUserSession.channels[0].botInfo.customData)
+        // console.log("initialLanguage",data.context.session.BotUserSession.channels[0].botInfo.customData.initialLanguage)
+        // console.log("currentLanguage",currentLanguage)
     const verbiageBuilderData =
       currentLanguage === "fr"
         ? constants.botConversationResponse.verbiage_Fr_RespData
