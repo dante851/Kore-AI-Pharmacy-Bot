@@ -112,7 +112,7 @@ function selectRichCardTemplate(
     });
     obj.payload["quick_replies"] = quickreplyData;
     obj.payload["template_type"] = templatetype.toLowerCase();
-    obj.payload["text"] = "Do You need to see the order Id Details?";
+    obj.payload["text"] = templateData[0]?.WEB_RESPONSE_MSG;
     return JSON.stringify(obj);
   } else if (templatetype === "BUTTON") {
     let obj = templateTypeFormat;
