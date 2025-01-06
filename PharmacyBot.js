@@ -38,10 +38,16 @@ module.exports = {
     logFn("warn", __filename, "on_bot_message", data.message);
 
     //Sends back the message to user
-    const currentLanguage = data.context.currentLanguage;
-    if(data.context.session.BotUserSession){
-      console.log("data.context", JSON.stringify(data.context.session.BotUserSession.channels));
-    }
+    const currentLanguage =
+      data.context.session.BotUserSession &&
+      data.context.session.BotUserSession.channels &&
+      data.context.session.BotUserSession.channels.botInfo &&
+      data.context.session.BotUserSession.channels.botInfo.customData &&
+      data.context.session.BotUserSession.channels.botInfo.customData
+        .initialLanguage
+        ? data.context.session.BotUserSession.channels.botInfo.customData
+            .initialLanguage
+        : "en";
     const verbiageBuilderData =
       currentLanguage === "fr"
         ? constants.botConversationResponse.verbiage_Fr_RespData
