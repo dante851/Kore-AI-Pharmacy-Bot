@@ -56,6 +56,8 @@ module.exports = {
       currentLanguage === "fr"
         ? constants.botConversationResponse.verbiage_Fr_RespData
         : constants.botConversationResponse.verbiage_En_RespData;
+        console.log("verbiageBuilderData",verbiageBuilderData);
+        console.log("data.message",data.message);
     data.message = populateBotResponse(
       verbiageBuilderData,
       data.message,
