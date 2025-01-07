@@ -138,7 +138,7 @@ function selectRichCardTemplate(
         payload: ele.BUTTON_ID,
       };
     });
-    obj.payload["button"] = buttonData;
+    obj.payload["buttons"] = buttonData;
     obj.payload["template_type"] = templatetype
       .slice(0, templatetype.length - 1)
       .toLowerCase();
