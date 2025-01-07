@@ -17,8 +17,11 @@ module.exports = {
 
     const resultCopy = JSON.parse(JSON.stringify(result));
 
-    // Custom Bot Responses Condition
     if (responseId.startsWith("ESI_PHA_ORD_INFO")) {
+      // Custom FAQ Responses
+      return msgTemplate(result);
+    } else {
+      // Custom Bot Responses Condition
       switch (responseId) {
         case constants.botConversationUniqId.ESI_PHA_ORD_INFO_ORD_ID_RESP:
           orderIdInput = entityStatus;
@@ -40,10 +43,11 @@ module.exports = {
 
         case constants.botConversationUniqId.ESI_PHA_ORD_INFO_INVALID_MSG:
           if (failedEntity !== null) {
-            let failedEntityInputStr = resultCopy[0].WEB_RESPONSE_MSG.replaceAll(
-              "${dynamic_entity}",
-              failedEntity
-            );
+            let failedEntityInputStr =
+              resultCopy[0].WEB_RESPONSE_MSG.replaceAll(
+                "${dynamic_entity}",
+                failedEntity
+              );
             resultCopy[0].WEB_RESPONSE_MSG = failedEntityInputStr;
             return msgTemplate(resultCopy);
           }
@@ -52,25 +56,24 @@ module.exports = {
         default:
           return msgTemplate(result);
       }
-    } else {
-      // Custom FAQ Responses
-      return msgTemplate(result);
     }
-  }
+  },
 };
 function msgTemplate(templateData) {
   let textResponses;
-  if(templateData.length > 1){
-    textResponses = templateData.filter(response => response.MEDIA_TYPE === "TEXT");
-    // Remove the 0th value from the array 
+  if (templateData.length > 1) {
+    textResponses = templateData.filter(
+      (response) => response.MEDIA_TYPE === "TEXT"
+    );
+    // Remove the 0th value from the array
     templateData.splice(0, 1);
   }
   const templateType = templateData[0]?.MEDIA_TYPE;
   let cardData = templateData[0]?.DATA;
 
   const dafaultTextTemplate = templateData[0]?.WEB_RESPONSE_MSG;
-  console.log("templateData",templateData)
-  
+  console.log("templateData", templateData);
+
   switch (templateType) {
     case "TABLE":
       return selectRichCardTemplate(
@@ -136,7 +139,9 @@ function selectRichCardTemplate(
       };
     });
     obj.payload["button"] = buttonData;
-    obj.payload["template_type"] = templatetype.slice(0,templatetype.length - 1).toLowerCase();
+    obj.payload["template_type"] = templatetype
+      .slice(0, templatetype.length - 1)
+      .toLowerCase();
     obj.payload["text"] = textResponses[0]?.WEB_RESPONSE_MSG;
     return JSON.stringify(obj);
   }
