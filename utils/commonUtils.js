@@ -17,7 +17,7 @@ module.exports = {
 
     const resultCopy = JSON.parse(JSON.stringify(result));
 
-    if (responseId.includes('FAQ')) {
+    if (responseId.startsWith("ESI_PHA_FAQ")) {
       // Custom FAQ Responses
       return msgTemplate(result);
     } else {
