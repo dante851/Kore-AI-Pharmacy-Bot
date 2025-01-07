@@ -38,6 +38,7 @@ module.exports = {
     logFn("warn", __filename, "on_bot_message", data.message);
 
     //Sends back the message to user
+    const defaultLanguage = "en";
     const currentLanguage =
       data.context.session.BotUserSession &&
       data.context.session.BotUserSession.channels &&
@@ -45,19 +46,11 @@ module.exports = {
       data.context.session.BotUserSession.channels[0].botInfo.customData
         ? data.context.session.BotUserSession.channels[0].botInfo.customData
             .initialLanguage
-        : "en";
-        // console.log("BotUserSession",data.context.session.BotUserSession)
-        // console.log("channels",data.context.session.BotUserSession.channels)
-        // console.log("botInfo",data.context.session.BotUserSession.channels[0].botInfo)
-        // console.log("customData",data.context.session.BotUserSession.channels[0].botInfo.customData)
-        // console.log("initialLanguage",data.context.session.BotUserSession.channels[0].botInfo.customData.initialLanguage)
-        // console.log("currentLanguage",currentLanguage)
+        : defaultLanguage;
     const verbiageBuilderData =
       currentLanguage === "fr"
         ? constants.botConversationResponse.verbiage_Fr_RespData
         : constants.botConversationResponse.verbiage_En_RespData;
-        console.log("verbiageBuilderData",verbiageBuilderData);
-        console.log("data.message",data.message);
     data.message = populateBotResponse(
       verbiageBuilderData,
       data.message,
