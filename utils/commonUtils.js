@@ -136,7 +136,7 @@ function selectRichCardTemplate(
       };
     });
     obj.payload["button"] = buttonData;
-    obj.payload["template_type"] = templatetype.toLowerCase();
+    obj.payload["template_type"] = templatetype.slice(0,templatetype.length - 1).toLowerCase();
     obj.payload["text"] = textResponses[0]?.WEB_RESPONSE_MSG;
     return JSON.stringify(obj);
   }
