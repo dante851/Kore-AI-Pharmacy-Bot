@@ -89,7 +89,7 @@ function msgTemplate(templateData) {
         templateType,
         textResponses
       );
-    case "BUTTON":
+    case "BUTTONS":
       return selectRichCardTemplate(
         richCardTemplate.buttonTemplate,
         templateData,
@@ -128,7 +128,7 @@ function selectRichCardTemplate(
     obj.payload["template_type"] = templatetype.toLowerCase();
     obj.payload["text"] = textResponses[0]?.WEB_RESPONSE_MSG;
     return JSON.stringify(obj);
-  } else if (templatetype === "BUTTON") {
+  } else if (templatetype === "BUTTONS") {
     let obj = templateTypeFormat;
     let resultData = templateData;
     let buttonData = resultData.map((ele) => {
