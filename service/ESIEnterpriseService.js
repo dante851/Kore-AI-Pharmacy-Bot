@@ -5,6 +5,7 @@ const qs = require("qs");
 const { requestHeaders } = require("../constants/botConstants");
 const { preChatForm } = require("../constants/botConstants");
 const { makeHttpCall } = require("../makeHttpCall");
+const { orderResponse } = require("../constants/botConstants");
 
 module.exports = {
   /**
@@ -13,14 +14,19 @@ module.exports = {
    * @returns the id details.
    */
   async getOrderDetails(orderId) {
-    const url = `${process.env.ESI_ORDER_ID_RESPONSE_URL}=${orderId}`;
-    return makeHttpCall("get", url)
-      .then(function (res) {
-        return res.data;
+    const filteredResponse = orderResponse.filter(function (data){
+      return data.trxNumber = orderId;
       })
-      .catch(function (err) {
-        return err;
-      });
+      console.log(filteredResponse[0]);
+      return filteredResponse[0];
+    // const url = `${process.env.ESI_ORDER_ID_RESPONSE_URL}=${orderId}`;
+    // return makeHttpCall("get", url)
+    //   .then(function (res) {
+    //     return res.data;
+    //   })
+    //   .catch(function (err) {
+    //     return err;
+    //   });
   },
 
   /**

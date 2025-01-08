@@ -11,10 +11,10 @@
     "leastNodeVersion": 10
   },
   "credentials": {
-    "apikey": "mO1vtdjrDipwKhWGrmTx5V/1UEf9c6tzfzTSMCIuiN0=",
-    "appId": "cs-29024b75-e625-5f00-9ad7-982ea4a7379e",
-    "botId": "st-d806b790-75da-56e6-8987-2b6beb667e94",
-    "botName": "Ask Iris"
+    "apikey": "CYomowthMvnX4Bqe2Gc3RfG+M1ng13gfFHPqKdTVq/I=",
+    "appId": "cs-9ea68b61-328e-54ba-b1ac-ccadc15af9e8",
+    "botId": "st-ae29b86a-53b5-570a-93b9-7fdb0510f76d",
+    "botName": "ordermanage"
   },
   "jwt": {
     "jwtAlgorithm": "HS256",
