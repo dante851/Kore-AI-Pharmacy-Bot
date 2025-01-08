@@ -8,7 +8,18 @@ module.exports = {
     messageDataWithBotUserSession
   ) {
     const verbiage_builder_resp = vbResponse;
-    let entityStatus = messageDataWithBotUserSession.entity_status;
+    let entityStatus = {
+            "href": "",
+            "customerNum": "736642",
+            "deliveryOrderNumber": "O100722903",
+            "pharmacyId": "411",
+            "rxNumber": "2607563",
+            "shipmentTrackingNumber": "123456789012",
+            "shippingDate": "2024-07-08",
+            "shippingProvider": "CanadaPost",
+            "trxNumber": "2607581",
+            "itemName": "Pms-Pregabalin"
+        }
     let failedEntity = messageDataWithBotUserSession.failedEntity;
     let orderIdInput = "";
     const result = verbiage_builder_resp.filter(
@@ -24,12 +35,10 @@ module.exports = {
       // Custom Bot Responses Condition
       switch (responseId) {
         case constants.botConversationUniqId.ESI_PHA_ORD_INFO_ORD_ID_RESP:
-          orderIdInput = entityStatus;
-          let str = resultCopy[0].WEB_RESPONSE_MSG.replaceAll(
-            "${order_status}",
-            orderIdInput
-          );
+          let values = entityStatus;
+          let str = replacePlaceholders(resultCopy[0].WEB_RESPONSE_MSG, values);
           resultCopy[0].WEB_RESPONSE_MSG = str;
+          console.log(str)
           return msgTemplate(resultCopy);
 
         case constants.botConversationUniqId.ESI_PHA_ORD_INFO_MEMBER_ID_RESP:
@@ -144,4 +153,8 @@ function selectRichCardTemplate(
     obj.payload["text"] = textResponses[0]?.WEB_RESPONSE_MSG;
     return JSON.stringify(obj);
   }
+}
+
+function replacePlaceholders(template, values) {
+  return template.replace(/\${([^}]+)}/g, (match, key) => values[key] || '');
 }
