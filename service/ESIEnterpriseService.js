@@ -14,10 +14,17 @@ module.exports = {
    * @returns the id details.
    */
   async getOrderDetails(orderId) {
-    const filteredResponse = orderResponse.length > 0 ? orderResponse.filter(function (data){
-      return data.trxNumber = orderId;
-      }) : [];
-      return filteredResponse;
+    const filteredResponse =
+      orderResponse.length > 0 &&
+      orderResponse.some((data) => data.trxNumber === orderId)
+        ? orderResponse.filter(function (data) {
+            return data.trxNumber === orderId;
+          })
+        : [];
+
+    console.log(filteredResponse);
+
+    return filteredResponse;
     // const url = `${process.env.ESI_ORDER_ID_RESPONSE_URL}=${orderId}`;
     // return makeHttpCall("get", url)
     //   .then(function (res) {
