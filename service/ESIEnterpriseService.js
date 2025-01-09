@@ -21,9 +21,6 @@ module.exports = {
             return data.trxNumber === orderId;
           })
         : [];
-
-    console.log(filteredResponse);
-
     return filteredResponse;
     // const url = `${process.env.ESI_ORDER_ID_RESPONSE_URL}=${orderId}`;
     // return makeHttpCall("get", url)

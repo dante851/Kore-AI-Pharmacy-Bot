@@ -1,6 +1,7 @@
 const { verbiageBuilder } = require("../verbiageBuilder");
 const constants = require("../constants/botConstants");
 const richCardTemplate = require("../richCardTemplate.json");
+const botConstants = require("../constants/botConstants");
 module.exports = {
   populateBotResponse: function (
     vbResponse,
@@ -23,64 +24,26 @@ module.exports = {
     } else {
       // Custom Bot Responses Condition
       if (responseId) {
-        console.log("responseId",responseId)
         if (responseId.indexOf("INVALID_MSG") > -1) {
-          console.log("failedEntity",failedEntity)
           let str = replacePlaceholders(
             resultCopy[0].WEB_RESPONSE_MSG,
             failedEntity
           );
           resultCopy[0].WEB_RESPONSE_MSG = str;
-          console.log(str);
           return msgTemplate(resultCopy);
         } else {
           if (resultCopy[0].WEB_RESPONSE_MSG.indexOf("${") > -1) {
-            console.log("entityStatus",entityStatus);
-            console.log("resultCopy[0].WEB_RESPONSE_MSG",resultCopy[0].WEB_RESPONSE_MSG);
             let str = replacePlaceholders(
               resultCopy[0].WEB_RESPONSE_MSG,
               entityStatus
             );
             resultCopy[0].WEB_RESPONSE_MSG = str;
-            console.log("strafter",str);
             return msgTemplate(resultCopy);
           } else {
             return msgTemplate(result);
           }
         }
       }
-      // switch (responseId) {
-      //   case constants.botConversationUniqId.ESI_PHA_ORD_INFO_ORD_ID_RESP:
-      //     let values = entityStatus;
-      //     let str = replacePlaceholders(resultCopy[0].WEB_RESPONSE_MSG, values);
-      //     resultCopy[0].WEB_RESPONSE_MSG = str;
-      //     console.log(str)
-      //     return msgTemplate(resultCopy);
-
-      //   case constants.botConversationUniqId.ESI_PHA_ORD_INFO_MEMBER_ID_RESP:
-      //     let memberIdInput = entityStatus;
-      //     let memberStr = resultCopy[0].WEB_RESPONSE_MSG.replaceAll(
-      //       "${member_status}",
-      //       memberIdInput
-      //     );
-      //     resultCopy[0].WEB_RESPONSE_MSG = memberStr;
-      //     return msgTemplate(resultCopy);
-
-      //   case constants.botConversationUniqId.ESI_PHA_ORD_INFO_INVALID_MSG:
-      //     if (failedEntity !== null) {
-      //       let failedEntityInputStr =
-      //         resultCopy[0].WEB_RESPONSE_MSG.replaceAll(
-      //           "${dynamic_entity}",
-      //           failedEntity
-      //         );
-      //       resultCopy[0].WEB_RESPONSE_MSG = failedEntityInputStr;
-      //       return msgTemplate(resultCopy);
-      //     }
-      //     break;
-
-      //   default:
-      //     return msgTemplate(result);
-      // }
     }
   },
 };
@@ -172,5 +135,20 @@ function selectRichCardTemplate(
 }
 
 function replacePlaceholders(template, values) {
+  // Find all placeholders in the template
+  const placeholders = template.match(/\${([^}]+)}/g);
+
+  // Check if all placeholders have corresponding values in the values object
+  const allPlaceholdersMatched = placeholders.every((placeholder) => {
+    const key = placeholder.slice(2, -1); // Extract the key from the placeholder
+    return values.hasOwnProperty(key); // Check if the key exists in the values object
+  });
+
+  // If not all placeholders have corresponding values, return the original template
+  if (!allPlaceholdersMatched) {
+    return botConstants.errorMessages.SOMETHING_WENT_WRONG;
+  }
+
+  // Replace placeholders with corresponding values
   return template.replace(/\${([^}]+)}/g, (match, key) => values[key] || "");
 }

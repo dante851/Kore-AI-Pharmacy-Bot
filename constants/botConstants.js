@@ -159,7 +159,7 @@ module.exports = {
     DATA_NOT_FOUND: 404,
   },
   errorMessages: {
-    USER_DOES_NOT_EXIST: "User account does not exist",
+    SOMETHING_WENT_WRONG:"Something Went Wrong . Please try again later."
   },
   successMessages: {
     FETCHED: "Fetched Successfully",
