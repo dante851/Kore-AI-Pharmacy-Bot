@@ -21,21 +21,21 @@ module.exports = {
    */
   async getOrderIdDetails(req, res) {
     const FUNC_NAME = `getOrderIdDetails`;
-    let response;
+    let response = {};
     try {
       if (req.body.orderId) {
-        response = Object.create(constants.serverResponses.success);
         response.body = await ESIEnterpriceService.getOrderDetails(
           req.body.orderId
         );
+        if (response.body.length === 0) {
+          response = Object.create(constants.serverResponses.dataNotFound);
+        }else{
+          response = Object.create(constants.serverResponses.success);
+        }
       }
     } catch (e) {
       logFn("error", __filename, `${MODULE_NAME} :: ${FUNC_NAME} :: `, e);
-      if (e?.status === 404) {
-        response = Object.create(constants.serverResponses.dataNotFound);
-      } else {
         response = Object.create(constants.serverResponses.serverError);
-      }
     }
     return res.status(response.status).send(response.body);
   },
