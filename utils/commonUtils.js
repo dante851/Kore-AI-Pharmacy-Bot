@@ -8,7 +8,7 @@ module.exports = {
     messageDataWithBotUserSession
   ) {
     const verbiage_builder_resp = vbResponse;
-    let entityStatus = messageDataWithBotUserSession.entityStatus;
+    let entityStatus = messageDataWithBotUserSession.entity_status;
     let failedEntity = messageDataWithBotUserSession.failedEntity;
     let orderIdInput = "";
     const result = verbiage_builder_resp.filter(
