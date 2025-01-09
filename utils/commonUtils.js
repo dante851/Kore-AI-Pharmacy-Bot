@@ -40,6 +40,8 @@ module.exports = {
             resultCopy[0].WEB_RESPONSE_MSG = str;
             console.log(str);
             return msgTemplate(resultCopy);
+          } else {
+            return msgTemplate(result);
           }
         }
       }
