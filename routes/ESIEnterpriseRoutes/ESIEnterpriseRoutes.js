@@ -21,9 +21,15 @@ router.use(function (req, res, next) {
 });
 
 router.post(
-  "/getIdDetails",
+  "/getorderIdDetails",
   apiValidation.validateAPIkey,
-  ESIEnterpriseServiceController.getIdDetails
+  ESIEnterpriseServiceController.getOrderIdDetails
+);
+
+router.post(
+  "/getMemberIdDetails",
+  apiValidation.validateAPIkey,
+  ESIEnterpriseServiceController.getMemberIdDetails
 );
 router.post(
   "/getPreChatDetails",

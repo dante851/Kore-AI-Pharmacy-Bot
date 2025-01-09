@@ -8,18 +8,7 @@ module.exports = {
     messageDataWithBotUserSession
   ) {
     const verbiage_builder_resp = vbResponse;
-    let entityStatus = {
-            "href": "",
-            "customerNum": "736642",
-            "deliveryOrderNumber": "O100722903",
-            "pharmacyId": "411",
-            "rxNumber": "2607563",
-            "shipmentTrackingNumber": "123456789012",
-            "shippingDate": "2024-07-08",
-            "shippingProvider": "CanadaPost",
-            "trxNumber": "2607581",
-            "itemName": "Pms-Pregabalin"
-        }
+    let entityStatus = messageDataWithBotUserSession.entityStatus;
     let failedEntity = messageDataWithBotUserSession.failedEntity;
     let orderIdInput = "";
     const result = verbiage_builder_resp.filter(
@@ -33,38 +22,59 @@ module.exports = {
       return msgTemplate(result);
     } else {
       // Custom Bot Responses Condition
-      switch (responseId) {
-        case constants.botConversationUniqId.ESI_PHA_ORD_INFO_ORD_ID_RESP:
-          let values = entityStatus;
-          let str = replacePlaceholders(resultCopy[0].WEB_RESPONSE_MSG, values);
-          resultCopy[0].WEB_RESPONSE_MSG = str;
-          console.log(str)
-          return msgTemplate(resultCopy);
-
-        case constants.botConversationUniqId.ESI_PHA_ORD_INFO_MEMBER_ID_RESP:
-          let memberIdInput = entityStatus;
-          let memberStr = resultCopy[0].WEB_RESPONSE_MSG.replaceAll(
-            "${member_status}",
-            memberIdInput
+      if (responseId) {
+        if (responseId.indexOf("INVALID_MSG") > -1) {
+          let str = replacePlaceholders(
+            resultCopy[0].WEB_RESPONSE_MSG,
+            failedEntity
           );
-          resultCopy[0].WEB_RESPONSE_MSG = memberStr;
+          resultCopy[0].WEB_RESPONSE_MSG = str;
+          console.log(str);
           return msgTemplate(resultCopy);
-
-        case constants.botConversationUniqId.ESI_PHA_ORD_INFO_INVALID_MSG:
-          if (failedEntity !== null) {
-            let failedEntityInputStr =
-              resultCopy[0].WEB_RESPONSE_MSG.replaceAll(
-                "${dynamic_entity}",
-                failedEntity
-              );
-            resultCopy[0].WEB_RESPONSE_MSG = failedEntityInputStr;
+        } else {
+          if (resultCopy[0].WEB_RESPONSE_MSG.indexOf("${") > -1) {
+            let str = replacePlaceholders(
+              resultCopy[0].WEB_RESPONSE_MSG,
+              entityStatus
+            );
+            resultCopy[0].WEB_RESPONSE_MSG = str;
+            console.log(str);
             return msgTemplate(resultCopy);
           }
-          break;
-
-        default:
-          return msgTemplate(result);
+        }
       }
+      // switch (responseId) {
+      //   case constants.botConversationUniqId.ESI_PHA_ORD_INFO_ORD_ID_RESP:
+      //     let values = entityStatus;
+      //     let str = replacePlaceholders(resultCopy[0].WEB_RESPONSE_MSG, values);
+      //     resultCopy[0].WEB_RESPONSE_MSG = str;
+      //     console.log(str)
+      //     return msgTemplate(resultCopy);
+
+      //   case constants.botConversationUniqId.ESI_PHA_ORD_INFO_MEMBER_ID_RESP:
+      //     let memberIdInput = entityStatus;
+      //     let memberStr = resultCopy[0].WEB_RESPONSE_MSG.replaceAll(
+      //       "${member_status}",
+      //       memberIdInput
+      //     );
+      //     resultCopy[0].WEB_RESPONSE_MSG = memberStr;
+      //     return msgTemplate(resultCopy);
+
+      //   case constants.botConversationUniqId.ESI_PHA_ORD_INFO_INVALID_MSG:
+      //     if (failedEntity !== null) {
+      //       let failedEntityInputStr =
+      //         resultCopy[0].WEB_RESPONSE_MSG.replaceAll(
+      //           "${dynamic_entity}",
+      //           failedEntity
+      //         );
+      //       resultCopy[0].WEB_RESPONSE_MSG = failedEntityInputStr;
+      //       return msgTemplate(resultCopy);
+      //     }
+      //     break;
+
+      //   default:
+      //     return msgTemplate(result);
+      // }
     }
   },
 };
@@ -156,5 +166,5 @@ function selectRichCardTemplate(
 }
 
 function replacePlaceholders(template, values) {
-  return template.replace(/\${([^}]+)}/g, (match, key) => values[key] || '');
+  return template.replace(/\${([^}]+)}/g, (match, key) => values[key] || "");
 }
