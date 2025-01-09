@@ -22,20 +22,22 @@ module.exports = {
   async getOrderIdDetails(req, res) {
     const FUNC_NAME = `getOrderIdDetails`;
     let response = {};
+    let apiResponse = [];
     try {
       if (req.body.orderId) {
-        response.body = await ESIEnterpriceService.getOrderDetails(
+        apiResponse = await ESIEnterpriceService.getOrderDetails(
           req.body.orderId
         );
-        if (response.body.length === 0) {
+        if (apiResponse.length === 0) {
           response = Object.create(constants.serverResponses.dataNotFound);
-        }else{
+        } else {
           response = Object.create(constants.serverResponses.success);
+          response.body = apiResponse;
         }
       }
     } catch (e) {
       logFn("error", __filename, `${MODULE_NAME} :: ${FUNC_NAME} :: `, e);
-        response = Object.create(constants.serverResponses.serverError);
+      response = Object.create(constants.serverResponses.serverError);
     }
     return res.status(response.status).send(response.body);
   },
