@@ -23,6 +23,7 @@ module.exports = {
     } else {
       // Custom Bot Responses Condition
       if (responseId) {
+        console.log("responseId",responseId)
         if (responseId.indexOf("INVALID_MSG") > -1) {
           console.log("failedEntity",failedEntity)
           let str = replacePlaceholders(
@@ -34,13 +35,12 @@ module.exports = {
           return msgTemplate(resultCopy);
         } else {
           if (resultCopy[0].WEB_RESPONSE_MSG.indexOf("${") > -1) {
+            console.log("entityStatus",entityStatus);
+            console.log("resultCopy[0].WEB_RESPONSE_MSG",resultCopy[0].WEB_RESPONSE_MSG);
             let str = replacePlaceholders(
               resultCopy[0].WEB_RESPONSE_MSG,
               entityStatus
             );
-            console.log("strbef",str);
-            console.log("entityStatus",entityStatus);
-            console.log("resultCopy[0].WEB_RESPONSE_MSG",resultCopy[0].WEB_RESPONSE_MSG);
             resultCopy[0].WEB_RESPONSE_MSG = str;
             console.log("strafter",str);
             return msgTemplate(resultCopy);
