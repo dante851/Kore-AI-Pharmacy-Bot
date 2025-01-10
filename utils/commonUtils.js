@@ -38,6 +38,7 @@ module.exports = {
           console.log("resultCopy[0].WEB_RESPONSE_MSG", resultCopy[0].WEB_RESPONSE_MSG);
           resultCopy[0].WEB_RESPONSE_MSG = fallbackmsg;
           console.log("resultCopy[0].WEB_RESPONSE_MSG1", resultCopy[0].WEB_RESPONSE_MSG);
+          return msgTemplate(resultCopy);
         } else {
           if (resultCopy[0].WEB_RESPONSE_MSG.indexOf("${") > -1) {
             let str = replacePlaceholders(
