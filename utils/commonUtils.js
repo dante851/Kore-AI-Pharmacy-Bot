@@ -35,7 +35,9 @@ module.exports = {
           let fallbackmsgArr = resultCopy[0].WEB_RESPONSE_MSG.split("~");
           let fallbackmsg = getRandomFallbackMessage(fallbackmsgArr);
           console.log("fallbackmsg", fallbackmsg);
+          console.log("resultCopy[0].WEB_RESPONSE_MSG", resultCopy[0].WEB_RESPONSE_MSG);
           resultCopy[0].WEB_RESPONSE_MSG = fallbackmsg;
+          console.log("resultCopy[0].WEB_RESPONSE_MSG1", resultCopy[0].WEB_RESPONSE_MSG);
         } else {
           if (resultCopy[0].WEB_RESPONSE_MSG.indexOf("${") > -1) {
             let str = replacePlaceholders(
