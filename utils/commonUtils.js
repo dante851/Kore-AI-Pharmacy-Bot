@@ -31,7 +31,7 @@ module.exports = {
           );
           resultCopy[0].WEB_RESPONSE_MSG = str;
           return msgTemplate(resultCopy);
-        } else if (responseId.includes('~')) {
+        } else if (resultCopy[0].WEB_RESPONSE_MSG.includes('~')) {
           let fallbackmsgArr = resultCopy[0].WEB_RESPONSE_MSG.split("~");
           let fallbackmsg = getRandomFallbackMessage(fallbackmsgArr);
           console.log("fallbackmsg", fallbackmsg);
