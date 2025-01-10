@@ -31,6 +31,11 @@ module.exports = {
           );
           resultCopy[0].WEB_RESPONSE_MSG = str;
           return msgTemplate(resultCopy);
+        } else if (responseId.indexOf("FALLBACK_MSG") > -1) {
+          let fallbackmsgArr = resultCopy[0].WEB_RESPONSE_MSG.split("~");
+          let fallbackmsg = getRandomFallbackMessage(fallbackmsgArr);
+          console.log("fallbackmsg", fallbackmsg);
+          resultCopy[0].WEB_RESPONSE_MSG = fallbackmsg;
         } else {
           if (resultCopy[0].WEB_RESPONSE_MSG.indexOf("${") > -1) {
             let str = replacePlaceholders(
@@ -134,6 +139,8 @@ function selectRichCardTemplate(
   }
 }
 
+// Function to get a replace ${} from message with dynamic values sent from VBuilder.
+
 function replacePlaceholders(template, values) {
   // Find all placeholders in the template
   const placeholders = template.match(/\${([^}]+)}/g);
@@ -151,4 +158,10 @@ function replacePlaceholders(template, values) {
 
   // Replace placeholders with corresponding values
   return template.replace(/\${([^}]+)}/g, (match, key) => values[key] || "");
+}
+
+// Function to get a random fallback message from the array
+function getRandomFallbackMessage(messagesArray) {
+  const randomIndex = Math.floor(Math.random() * messagesArray.length);
+  return messagesArray[randomIndex];
 }
