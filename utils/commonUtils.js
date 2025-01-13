@@ -1,7 +1,5 @@
-const { verbiageBuilder } = require("../verbiageBuilder");
 const constants = require("../constants/botConstants");
 const richCardTemplate = require("../richCardTemplate.json");
-const botConstants = require("../constants/botConstants");
 module.exports = {
   populateBotResponse: function (
     vbResponse,
@@ -11,7 +9,6 @@ module.exports = {
     const verbiage_builder_resp = vbResponse;
     let entityStatus = messageDataWithBotUserSession.entity_status;
     let failedEntity = messageDataWithBotUserSession.failedEntity;
-    let orderIdInput = "";
     const result = verbiage_builder_resp.filter(
       (ele) => ele.RESPONSE_ID === responseId
     );
@@ -31,14 +28,15 @@ module.exports = {
           );
           resultCopy[0].WEB_RESPONSE_MSG = str;
           return msgTemplate(resultCopy);
-        } else if (resultCopy[0].WEB_RESPONSE_MSG.includes('~')) {
-          let fallbackmsgArr = resultCopy[0].WEB_RESPONSE_MSG.split("~");
-          let fallbackmsg = getRandomFallbackMessage(fallbackmsgArr);
-          console.log("fallbackmsg", fallbackmsg);
-          console.log("resultCopy[0].WEB_RESPONSE_MSG", resultCopy[0].WEB_RESPONSE_MSG);
-          resultCopy[0].WEB_RESPONSE_MSG = fallbackmsg;
-          console.log("resultCopy[0].WEB_RESPONSE_MSG1", resultCopy[0].WEB_RESPONSE_MSG);
-          return msgTemplate(resultCopy);
+        } else if (responseId.indexOf("FALLBACK_MSG") > -1) {
+          if (resultCopy[0].WEB_RESPONSE_MSG.includes("~")) {
+            let fallbackmsgArr = resultCopy[0].WEB_RESPONSE_MSG.split("~");
+            let fallbackmsg = getRandomFallbackMessage(fallbackmsgArr);
+            resultCopy[0].WEB_RESPONSE_MSG = fallbackmsg;
+            return msgTemplate(resultCopy);
+          } else {
+            return msgTemplate(resultCopy);
+          }
         } else {
           if (resultCopy[0].WEB_RESPONSE_MSG.indexOf("${") > -1) {
             let str = replacePlaceholders(
@@ -55,6 +53,8 @@ module.exports = {
     }
   },
 };
+
+// Function to send custom messages.
 function msgTemplate(templateData) {
   let textResponses;
   if (templateData.length > 1) {
@@ -96,6 +96,8 @@ function msgTemplate(templateData) {
       return dafaultTextTemplate;
   }
 }
+
+// Function to select richcard templates.
 
 function selectRichCardTemplate(
   templateTypeFormat,
@@ -148,16 +150,19 @@ function replacePlaceholders(template, values) {
   // Find all placeholders in the template
   const placeholders = template.match(/\${([^}]+)}/g);
 
+
   // Check if all placeholders have corresponding values in the values object
   const allPlaceholdersMatched = placeholders.every((placeholder) => {
     const key = placeholder.slice(2, -1); // Extract the key from the placeholder
     return values.hasOwnProperty(key); // Check if the key exists in the values object
   });
 
+
   // If not all placeholders have corresponding values, return the original template
   if (!allPlaceholdersMatched) {
-    return botConstants.errorMessages.SOMETHING_WENT_WRONG;
+    return constants.errorMessages.SOMETHING_WENT_WRONG;
   }
+
 
   // Replace placeholders with corresponding values
   return template.replace(/\${([^}]+)}/g, (match, key) => values[key] || "");

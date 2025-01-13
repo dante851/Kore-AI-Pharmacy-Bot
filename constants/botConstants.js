@@ -159,7 +159,7 @@ module.exports = {
     DATA_NOT_FOUND: 404,
   },
   errorMessages: {
-    SOMETHING_WENT_WRONG:"Something Went Wrong . Please try again later."
+    SOMETHING_WENT_WRONG:"Something went wrong in the system. Please try again later."
   },
   successMessages: {
     FETCHED: "Fetched Successfully",
